@@ -1,7 +1,14 @@
+using Lab2_Zakrasnianyi.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+var emailSettings = builder.Configuration
+.GetSection("EmailSettings")
+.Get<EmailSettings>() ?? new EmailSettings();
+
+builder.Services.AddSingleton(emailSettings);
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 

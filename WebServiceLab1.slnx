@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="../Lab2_Zakrasnianyi/Lab2_Zakrasnianyi.Services/Lab2_Zakrasnianyi.Services.csproj" />
   <Project Path="WebServiceLab1/WebServiceLab1.csproj" />
 </Solution>

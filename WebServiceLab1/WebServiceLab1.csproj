@@ -4,6 +4,11 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>1ca9377d-d252-4335-b333-5b60579dcdc1</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lab2_Zakrasnianyi\Lab2_Zakrasnianyi.Services\Lab2_Zakrasnianyi.Services.csproj" />
+  </ItemGroup>
 
 </Project>
