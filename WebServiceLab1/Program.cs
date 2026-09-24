@@ -1,5 +1,16 @@
+using Serilog;
 using Lab2_Zakrasnianyi.Services;
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+.MinimumLevel.Information()
+.WriteTo.File(
+"Logs/requests-.log",
+rollingInterval: RollingInterval.Day,
+outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} {Message:lj}{NewLine}")
+.CreateLogger();
+
+builder.Host.UseSerilog();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -21,6 +32,22 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.Use(async (context, next) =>
+{
+    var requestTime = DateTime.Now;
+    var request = context.Request;
+
+    var fullUrl = $"{request.Scheme}://{request.Host}{request.PathBase}{request.Path}{request.QueryString}";
+    var ipAddress = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+    Log.Information(
+    "URL: {FullUrl} | Time: {RequestTime:yyyy-MM-dd HH:mm:ss} | IP: {IpAddress}",
+    fullUrl,
+    requestTime,
+    ipAddress);
+
+    await next();
+});
 app.UseRouting();
 
 app.UseAuthorization();
