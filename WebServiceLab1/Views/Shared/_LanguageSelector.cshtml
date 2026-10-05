@@ -1,0 +1,23 @@
+﻿<form asp-controller="Home"
+      asp-action="SetLanguage"
+      method="post"
+      class="d-flex gap-2">
+
+    <input type="hidden"
+           name="returnUrl"
+           value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
+
+    <button type="submit"
+            name="culture"
+            value="uk"
+            class="btn btn-sm btn-outline-light">
+        UA
+    </button>
+
+    <button type="submit"
+            name="culture"
+            value="en"
+            class="btn btn-sm btn-outline-light">
+        EN
+    </button>
+</form>

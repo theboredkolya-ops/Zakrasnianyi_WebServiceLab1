@@ -2,6 +2,7 @@ using Lab2_Zakrasnianyi.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebServiceLab1.Models;
+using Microsoft.AspNetCore.Localization;
 
 namespace WebServiceLab1.Controllers
 {
@@ -136,7 +137,27 @@ namespace WebServiceLab1.Controllers
                 _ => "application/octet-stream"
             };
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SetLanguage(string culture, string returnUrl = "/")
+        {
+            if (culture != "uk" && culture != "en")
+            {
+                culture = "uk";
+            }
 
+            Response.Cookies.Append(
+            CookieRequestCultureProvider.DefaultCookieName,
+            CookieRequestCultureProvider.MakeCookieValue(
+            new RequestCulture(culture)),
+            new CookieOptions
+            {
+                Expires = DateTimeOffset.UtcNow.AddYears(1),
+                IsEssential = true
+            });
+
+            return LocalRedirect(returnUrl);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
