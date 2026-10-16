@@ -53,23 +53,7 @@
 				<div id="logo">
 					<a href="index.html"><img src="img/logo.png" alt="" title="" /></a>
 				</div>
-				<nav id="nav-menu-container">
-					<ul class="nav-menu">
-						<li class="menu-active"><a href="#home">@Localizer["Home"]</a></li>
-						<li><a href="#about">@Localizer["About"]</a></li>
-						<li><a href="#coffee">@Localizer["Coffee"]</a></li>
-						<li><a href="#review">@Localizer["Review"]</a></li>
-						<li><a href="#blog">@Localizer["Blog"]</a></li>
-						<li class="menu-has-children">
-							<a href="">@Localizer["Pages"]</a>
-							<ul>
-								<li><a href="generic.html">Generic</a></li>
-								<li><a href="elements.html">Elements</a></li>
-							</ul>
-						</li>
-					</ul>
-					<partial name="_LanguageSelector" />
-				</nav><!-- #nav-menu-container -->
+				@await Component.InvokeAsync("Navbar")
 			</div>
 		</div>
 	</header>
