@@ -158,6 +158,34 @@ namespace WebServiceLab1.Controllers
 
             return LocalRedirect(returnUrl);
         }
+        [HttpGet]
+        public IActionResult Registration()
+        {
+            return View(new RegistrationModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Registration(RegistrationModel model)
+        {
+            var validator = new RegistrationValidator();
+            var validationResult = validator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+
+                return View(model);
+            }
+
+            ViewBag.Success = "Дані успішно пройшли валідацію!";
+            ModelState.Clear();
+
+            return View(new RegistrationModel());
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
